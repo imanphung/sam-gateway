@@ -1,0 +1,61 @@
+{
+  "generator-jhipster": {
+    "applicationIndex": 0,
+    "applicationType": "gateway",
+    "applications": {
+      "blog": {
+        "applicationIndex": 1,
+        "serverPort": "8081"
+      },
+      "store": {
+        "applicationIndex": 2,
+        "serverPort": "8082"
+      }
+    },
+    "authenticationType": "oauth2",
+    "baseName": "gateway",
+    "blueprints": [],
+    "buildTool": "gradle",
+    "cacheProvider": "no",
+    "clientFramework": "vue",
+    "clientPackageManager": "npm",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1666515076663,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "devServerPort": 9060,
+    "dtoSuffix": "DTO",
+    "enableGradleEnterprise": false,
+    "enableHibernateCache": false,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": true,
+    "entities": ["Tag", "Product", "Blog", "Post"],
+    "entitySuffix": "",
+    "gradleEnterpriseHost": "",
+    "jhiPrefix": "jhi",
+    "jhipsterVersion": "7.8.1",
+    "jwtSecretKey": "ZWJiODY4M2JhZmU5YmQzZTRjNDBhN2I0NDI2NTRlNTBhZjgyYjE2NGJjZDJjNjIzOWE0ZWFlMmU1YzdlZmZhZGU3ZDc2NjVhOGExZmE1M2ViNmYwMWUwY2JlMDcxZDllYTE2YzhmMjZkM2I1MzRlZTA4YTEzODJiZjAzYWQyMWQ=",
+    "languages": ["en"],
+    "lastLiquibaseTimestamp": 1666515316000,
+    "messageBroker": false,
+    "monorepository": true,
+    "nativeLanguage": "en",
+    "otherModules": [],
+    "packageFolder": "com/samhello/developer/gateway",
+    "packageName": "com.samhello.developer.gateway",
+    "pages": [],
+    "prodDatabaseType": "postgresql",
+    "reactive": true,
+    "searchEngine": false,
+    "serverPort": "8080",
+    "serviceDiscoveryType": "eureka",
+    "skipCheckLengthOfIdentifier": false,
+    "skipCommitHook": true,
+    "skipFakeData": false,
+    "skipUserManagement": true,
+    "testFrameworks": ["cypress"],
+    "websocket": false,
+    "withAdminUi": true
+  }
+}
