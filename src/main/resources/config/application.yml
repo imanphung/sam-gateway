@@ -185,12 +185,12 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: http://ec2-3-1-51-171.ap-southeast-1.compute.amazonaws.com:30109/realms/samgateway
+            issuer-uri: http://ec2-3-1-51-171.ap-southeast-1.compute.amazonaws.com:30109/realms/sam
         registration:
           oidc:
-            client-id: web_app
-            client-secret: web_app
-            scope: openid, profile, email, offline_access # last one for refresh tokens
+            client-id: gateway_web_app
+            client-secret: gateway_web_app
+            scope: openid, profile, email # last one for refresh tokens
 
 server:
   servlet:
