@@ -6,15 +6,32 @@ pipeline {
     stages {
         stage('Checkout Source') {
             steps {
-                checkout scm
+                script {
+                    try {
+                        notifyBuild('STARTED')
+                        checkout scm
+                    } catch (e) {
+                        // If there was an exception thrown, the build failed
+                        currentBuild.result = "FAILED"
+                        throw e
+                    }
+                }
             }
         }
     
         stage('ENV Test') {
             steps {
-                sh "chmod +x gradlew"
-                sh "./gradlew clean --no-daemon"
-                sh "./gradlew checkstyleNohttp --no-daemon"
+                script {
+                    try {
+                        sh "chmod +x gradlew"
+                        sh "./gradlew clean --no-daemon"
+                        sh "./gradlew checkstyleNohttp --no-daemon"
+                    } catch (e) {
+                        // If there was an exception thrown, the build failed
+                        currentBuild.result = "FAILED"
+                        throw e
+                    }
+                }
             }
         }
     
@@ -24,8 +41,14 @@ pipeline {
             }
             steps{
                 script {
-                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-                        sh './gradlew bootJar -Pprod jib -Djib.to.image=antphungit/gateway'
+                    try {
+                        docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+                            sh './gradlew bootJar -Pprod jib -Djib.to.image=antphungit/gateway'
+                        }
+                    } catch (e) {
+                        // If there was an exception thrown, the build failed
+                        currentBuild.result = "FAILED"
+                        throw e
                     }
                 }
             }
@@ -34,9 +57,39 @@ pipeline {
         stage('Deploying Services to Kubernetes Cluster') {
             steps {
                 script {
-                    kubernetesDeploy(configs: "sam-deployment.yml", kubeconfigId: "kubernetes-samhello")
+                    try {
+                        kubernetesDeploy(configs: "sam-deployment.yml", kubeconfigId: "kubernetes-samhello")
+                    } catch (e) {
+                        // If there was an exception thrown, the build failed
+                        currentBuild.result = "FAILED"
+                        throw e
+                    } finally {
+                        // Success or failure, always send notifications
+                        notifyBuild(currentBuild.result)
+                    }
                 }
             }
         }
     }
+}
+
+def notifyBuild(String buildStatus = 'STARTED') {
+    // Build status of null means success.
+    buildStatus = buildStatus ?: 'SUCCESS'
+
+    def color
+
+    if (buildStatus == 'STARTED') {
+        color = '#D4DADF'
+    } else if (buildStatus == 'SUCCESS') {
+        color = '#BDFFC3'
+    } else if (buildStatus == 'UNSTABLE') {
+        color = '#FFFE89'
+    } else {
+        color = '#FF9FA1'
+    }
+
+    def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}display/redirect"
+
+    slackSend(color: color, message: msg)
 }
