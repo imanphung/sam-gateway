@@ -49,7 +49,7 @@ spec:
           image: antphungit/gateway
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: prod
+              value: prod,k8s,oauth2
             - name: SPRING_CLOUD_CONFIG_URI
               value: http://admin:${jhipster.registry.password}@jhipster-registry.samhello.svc.cluster.local:8761/config
             - name: JHIPSTER_REGISTRY_PASSWORD
