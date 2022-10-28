@@ -28,7 +28,7 @@ pipeline {
                         sh "./gradlew checkstyleNohttp --no-daemon"
                         sh "./gradlew -Pprod -Pwar clean bootWar"
                         sh "./gradlew test integrationTest jacocoTestReport"
-                        
+
                     } catch (e) {
                         // If there was an exception thrown, the build failed
                         currentBuild.result = "FAILED"
@@ -95,4 +95,5 @@ def notifyBuild(String buildStatus = 'STARTED') {
     def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}display/redirect"
 
     slackSend(color: color, message: msg)
+    
 }
