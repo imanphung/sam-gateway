@@ -26,6 +26,9 @@ pipeline {
                         sh "chmod +x gradlew"
                         sh "./gradlew clean --no-daemon"
                         sh "./gradlew checkstyleNohttp --no-daemon"
+                        sh "./gradlew -Pprod -Pwar clean bootWar"
+                        sh "./gradlew test integrationTest jacocoTestReport"
+                        
                     } catch (e) {
                         // If there was an exception thrown, the build failed
                         currentBuild.result = "FAILED"
