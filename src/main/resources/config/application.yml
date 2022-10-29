@@ -185,11 +185,11 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: http://ec2-18-143-191-91.ap-southeast-1.compute.amazonaws.com:30109/realms/jhipster
+            issuer-uri: http://ec2-18-138-234-135.ap-southeast-1.compute.amazonaws.com:30109/realms/samgateway
         registration:
           oidc:
-            client-id: web_app
-            client-secret: web_app
+            client-id: gateway_web_app
+            client-secret: gateway_web_app
             scope: openid, profile, email # last one for refresh tokens
 
 server:
