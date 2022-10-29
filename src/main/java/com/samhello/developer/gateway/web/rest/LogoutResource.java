@@ -51,9 +51,10 @@ public class LogoutResource {
         }
 
         String originUrl = request.getHeaders().getOrigin();
-        if (logoutUrl.indexOf("/protocol") > -1) {
-            logoutUrl.append("?redirect_uri=").append(originUrl);
-        } else if (logoutUrl.indexOf("auth0.com") > -1) {
+        // if (logoutUrl.indexOf("/protocol") > -1) {
+        //     logoutUrl.append("?redirect_uri=").append(originUrl);
+        // } else if (logoutUrl.indexOf("auth0.com") > -1) {
+        if (logoutUrl.indexOf("auth0.com") > -1) {
             // Auth0
             logoutUrl.append("?client_id=").append(clientRegistration.getClientId()).append("&returnTo=").append(originUrl);
         } else {
