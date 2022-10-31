@@ -185,7 +185,7 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: http://ec2-18-138-234-135.ap-southeast-1.compute.amazonaws.com:30109/realms/jhipster
+            issuer-uri: http://ec2-18-142-114-56.ap-southeast-1.compute.amazonaws.com:30109/realms/jhipster
         registration:
           oidc:
             client-id: web_app
