@@ -46,7 +46,7 @@ pipeline {
                 script {
                     try {
                         docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-                            sh './gradlew bootJar -Pprod jib -Djib.to.image=antphungit/gateway'
+                            sh './gradlew bootJar -Pprod jib -Djib.to.image=antphungit/gateway:latest'
                         }
                     } catch (e) {
                         // If there was an exception thrown, the build failed
